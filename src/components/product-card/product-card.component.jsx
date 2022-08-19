@@ -9,13 +9,14 @@ import {
   Footer,
   Name,
   Price,
-} from './product-card.styles.jsx';
+} from './product-card.styles';
 
 const ProductCard = ({ product }) => {
   const { name, price, imageUrl } = product;
   const { addItemToCart } = useContext(CartContext);
 
   const addProductToCart = () => addItemToCart(product);
+
   return (
     <ProductCartContainer>
       <img src={imageUrl} alt={`${name}`} />
