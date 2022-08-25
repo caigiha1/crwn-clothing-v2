@@ -2,8 +2,10 @@ import { useState, useEffect, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import { selectCategoriesIsLoading } from '../../store/categories/categories.selector';
 import { selectCategoriesMap } from '../../store/categories/categories.selector';
 import ProductCard from '../../components/product-card/product-card.component';
+import Spinner from '../../components/spinner/spinner.component';
 
 // import { CategoriesContext } from '../../contexts/categories.context';
 
@@ -14,6 +16,7 @@ const Category = () => {
   // const { categoriesMap } = useContext(CategoriesContext);
   const categoriesMap = useSelector(selectCategoriesMap);
   const [products, setProducts] = useState(categoriesMap[category]);
+  const isLoading = useSelector(selectCategoriesIsLoading);
 
   useEffect(() => {
     setProducts(categoriesMap[category]);
@@ -22,12 +25,16 @@ const Category = () => {
   return (
     <Fragment>
       <Title>{category.toUpperCase()}</Title>
-      <CategoryContainer>
-        {products &&
-          products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-      </CategoryContainer>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <CategoryContainer>
+          {products &&
+            products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+        </CategoryContainer>
+      )}
     </Fragment>
   );
 };
