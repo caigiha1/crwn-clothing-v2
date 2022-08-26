@@ -1,9 +1,13 @@
-import logger from 'redux-logger';
-import thunk from 'redux-thunk';
+export const loggerMiddleware = (store) => (next) => (action) => {
+  if (!action.type) {
+    return next(action);
+  }
 
-const middleWares = [
-  process.env.NODE_ENV === 'development' && logger,
-  thunk,
-].filter(Boolean);
+  console.log('type: ', action.type);
+  console.log('payload: ', action.payload);
+  console.log('currentState: ', store.getState());
 
-export default middleWares;
+  next(action);
+
+  console.log('next state: ', store.getState());
+};
