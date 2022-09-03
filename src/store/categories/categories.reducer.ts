@@ -1,8 +1,6 @@
 import { AnyAction } from 'redux';
-import CATEGORIES_ACTION_TYPES from './categories.types';
 
 import {
-  CategoryAction,
   fetchCategoriesStart,
   fetchCategoriesSucess,
   fetchCategoriesFailed,
@@ -24,7 +22,7 @@ export const CATEGORIES_INITIAL_STATE: CategoriesState = {
 
 export const categoriesReducer = (
   state = CATEGORIES_INITIAL_STATE,
-  action = {} as AnyAction
+  action: AnyAction
 ) => {
   if (fetchCategoriesStart.match(action)) {
     return { ...state, isLoading: true };
